@@ -49,16 +49,18 @@
 	
     <target name="use.simple"
             depends="use.init">
-		<!-- Test properties. Used for tutorial demo -->
-		<find property="test" value="test-value"/>
-		<find print="test"/> 
+	    <!-- Test properties. Used for tutorial demo -->
+	    <find file="ant.jar" location="location.ant-jar">
+		    <fileset dir="${ant.home}" includes="**/*.jar"/>
+	    </find>
     </target>
 
     <target name="junit" description="Runs the unit tests" depends="jar">
         <delete dir="${junit.out.dir.xml}"/>
         <mkdir  dir="${junit.out.dir.xml}"/>
         <junit printsummary="yes" haltonfailure="no">
-            <classpath refid="classpath.test"/>
+	    <classpath refid="classpath.test"/>
+ 	    <sysproperty key="ant.home" value="${ant.home}" />
             <formatter type="xml"/>
             <batchtest fork="yes" todir="${junit.out.dir.xml}">
                 <fileset dir="${src.dir}" includes="**/*Test.java"/>
@@ -78,8 +80,20 @@
 
     <target name="test"
             depends="junit,junitreport"
-            description="Runs unit tests and creates a report"
-    />
+            description="Runs unit tests and creates a report" />
+
+    <target name="testFileNotPresent" />
+
+
+    <target name="testFilePresent"
+	    depends="use.init">
+	<echo message="${ant.home}" />
+    	<!-- Test properties. Used for tutorial demo -->
+	<find file="ant.jar" location="location.ant-jar">
+		<fileset dir="${ant.home}" includes="**/*.jar"/>
+	</find>
+    </target>
+
 
 </project>
 
