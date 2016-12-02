@@ -47,14 +47,6 @@
                  classpath="${ant.project.name}.jar"/>
     </target>
 	
-    <target name="use.simple"
-            depends="use.init">
-	    <!-- Test properties. Used for tutorial demo -->
-	    <find file="ant.jar" location="location.ant-jar">
-		    <fileset dir="${ant.home}" includes="**/*.jar"/>
-	    </find>
-    </target>
-
     <target name="junit" description="Runs the unit tests" depends="jar">
         <delete dir="${junit.out.dir.xml}"/>
         <mkdir  dir="${junit.out.dir.xml}"/>
@@ -90,7 +82,9 @@
 	<echo message="${ant.home}" />
     	<!-- Test properties. Used for tutorial demo -->
 	<find file="ant.jar" location="location.ant-jar">
-		<fileset dir="${ant.home}" includes="**/*.jar"/>
+		<path>
+			<fileset dir="${ant.home}" includes="**/*.jar"/>
+		</path>
 	</find>
     </target>
 

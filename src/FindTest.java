@@ -52,7 +52,7 @@ public class FindTest {
             Assert.fail("No 'no-fileset'-exception thrown.");
         } catch (Exception e) {
 			// exception expected
-            String expected = "fileset not set";
+            String expected = "path not set";
             Assert.assertEquals("Wrong exception message.", expected, e.getMessage());
         }
     }
