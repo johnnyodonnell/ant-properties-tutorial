@@ -80,14 +80,45 @@
     <target name="testFilePresent"
 	    depends="use.init">
 	<echo message="${ant.home}" />
-    	<!-- Test properties. Used for tutorial demo -->
+	
+    <!-- Test properties. Used for tutorial demo -->
 	<find file="ant.jar" location="location.ant-jar">
 		<path>
 			<fileset dir="${ant.home}" includes="**/*.jar"/>
 		</path>
 	</find>
     </target>
-
-
+	
+	<target name="test.init">
+	<mkdir dir="test1/dir11/dir111"/>
+	<mkdir dir="test1/dir11/dir112"/>
+	<mkdir dir="test1/dir13/dir131" />
+	<mkdir dir="test1/dir13/dir132" />
+		
+	<touch file="test1/dir11/dir111/test"/>
+        <touch file="test1/dir11/dir111/not"/>
+		
+	<touch file="test1/dir13/dir131/not2"/>
+        <touch file="test1/dir13/dir132/test"/>
+        <touch file="test1/dir13/dir132/not"/>
+        <touch file="test1/dir13/dir132/not2"/>
+        <mkdir dir="test2"/>
+        <copy todir="test2">
+            <fileset dir="test1"/>
+        </copy>
+    </target>
+	
+	 <target name="testMultipleFiles" depends="use.init,test.init">
+        <find file="test" location="location.test" delimiter=";">
+            <path>
+                <fileset dir="test1"/>
+                <fileset dir="test2"/>
+            </path>
+        </find>
+        <delete>
+            <fileset dir="test1"/>
+            <fileset dir="test2"/>
+        </delete>
+    </target>
 </project>
 

@@ -51,7 +51,7 @@ public class FindTest {
             find.execute();
             Assert.fail("No 'no-fileset'-exception thrown.");
         } catch (Exception e) {
-			// exception expected
+	    // exception expected
             String expected = "path not set";
             Assert.assertEquals("Wrong exception message.", expected, e.getMessage());
         }
@@ -70,6 +70,14 @@ public class FindTest {
         String result = buildRule.getProject().getProperty("location.ant-jar");
         Assert.assertNotNull("Property not set.", result);
         Assert.assertTrue("Wrong file found.", result.endsWith("ant.jar"));
+    }
+
+    @Test
+    public void testMultipleFiles() {
+        buildRule.executeTarget("testMultipleFiles");
+        String result = buildRule.getProject().getProperty("location.test");
+        Assert.assertNotNull("Property not set.", result);
+        Assert.assertTrue("Only one file found.", result.indexOf(";") > -1);
     }
 }
 
